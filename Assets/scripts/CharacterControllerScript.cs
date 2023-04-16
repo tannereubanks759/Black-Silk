@@ -11,6 +11,7 @@ public class CharacterControllerScript : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 moveDirection;
     public float moveSpeed;
+    private float idleSpeed;
     private CharacterController controller;
     private Vector3 Velocity;
     public float jumpForce;
@@ -38,6 +39,7 @@ public class CharacterControllerScript : MonoBehaviour
     {
         cursorDisable();
         controller = GetComponent<CharacterController>();
+        idleSpeed = moveSpeed;
     }
 
     
@@ -96,6 +98,19 @@ public class CharacterControllerScript : MonoBehaviour
                 }
             }
         }
+
+        //sprinting
+        if (Input.GetKey(KeyCode.LeftShift) && controller.height != 1)
+        {
+            moveSpeed = idleSpeed * 1.5f;
+        }
+        else
+        {
+            if(moveSpeed > idleSpeed)
+            {
+                moveSpeed = idleSpeed;
+            }
+        }
     }
 
     public void cursorDisable()
@@ -110,6 +125,19 @@ public class CharacterControllerScript : MonoBehaviour
     }
     public void Damage(float damage)
     {
+        Debug.Log("hit for " + damage);
         health -= damage;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "web")
+        {
+            Destroy(other.gameObject);
+            Damage(20);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }

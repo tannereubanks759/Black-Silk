@@ -11,6 +11,8 @@ public class AISpider : MonoBehaviour
     public float attackRange = .5f;
     public LayerMask visionLayers;
 
+    public float health = 150;
+
     private NavMeshAgent agent;
 
     private Vector3 SpawnLocation;
@@ -20,6 +22,8 @@ public class AISpider : MonoBehaviour
     private float nextTime;
 
     public bool chasing = false;
+
+
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,7 @@ public class AISpider : MonoBehaviour
         attackOnCooldown = false;
         visionRangeAttacking = visionRange * 2;
         visionRangeIdle = visionRange;
+        health = 100;
     }
 
     // Update is called once per frame
@@ -55,9 +60,9 @@ public class AISpider : MonoBehaviour
         if (CanSeePlayer() && (Vector3.Distance(transform.position, player.transform.position) <= attackRange) && attackOnCooldown == false) 
         {
             chasing = false;
+            player.GetComponent<CharacterControllerScript>().Damage(10);
             StartCoroutine(cooldown());
         }
-        Debug.Log(attackOnCooldown);
     }
     bool CanSeePlayer()
     {
@@ -104,5 +109,20 @@ public class AISpider : MonoBehaviour
         yield return new WaitForSeconds(4);
         agent.speed = agent.speed / 2;
         attackOnCooldown = false;
+    }
+    private void OnParticleCollision(GameObject other)
+    {
+        if(other.gameObject.name == "ShootSystem")
+        {
+            health -= 50;
+        }
+        if(health <= 0)
+        {
+            die();
+        }
+    }
+    void die()
+    {
+        Destroy(this.gameObject);
     }
 }

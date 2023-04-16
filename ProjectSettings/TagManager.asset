@@ -6,17 +6,19 @@ TagManager:
   tags:
   - wall
   - c4
+  - web
+  - spider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - wall
-  - 
-  - 
-  - 
+  - spider
+  - ignoreParticle
+  - particle
   - 
   - 
   - 
