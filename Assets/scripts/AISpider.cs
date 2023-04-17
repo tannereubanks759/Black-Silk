@@ -5,7 +5,8 @@ using UnityEngine.AI;
 public class AISpider : MonoBehaviour
 {
     public GameObject player;
-    public int visionRange = 3;
+    private Vector3 playerPos;
+    public int visionRange = 20;
     public int visionRangeAttacking;
     public int visionRangeIdle;
     public float attackRange = .5f;
@@ -24,7 +25,9 @@ public class AISpider : MonoBehaviour
     public bool chasing = false;
 
 
-    
+    public AudioSource spiderAudio;
+
+    float rate = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +38,14 @@ public class AISpider : MonoBehaviour
         visionRangeAttacking = visionRange * 2;
         visionRangeIdle = visionRange;
         health = 100;
+        nextTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerPos = player.transform.position;
+
         if (CanSeePlayer() && attackOnCooldown == false)
         {
             agent.isStopped = false;
@@ -56,17 +62,24 @@ public class AISpider : MonoBehaviour
             agent.isStopped = true;
         }
 
-
+        
         if (CanSeePlayer() && (Vector3.Distance(transform.position, player.transform.position) <= attackRange) && attackOnCooldown == false) 
         {
             chasing = false;
             player.GetComponent<CharacterControllerScript>().Damage(10);
             StartCoroutine(cooldown());
         }
+
+        if(Time.time > nextTime)
+        {
+            rate = Random.Range(3, 7);
+            spiderAudio.Play();
+            nextTime = Time.time + rate;
+        }
     }
     bool CanSeePlayer()
     {
-        bool inRange = Vector3.Distance(transform.position, player.transform.position) <= visionRange;
+        bool inRange = Vector3.Distance(transform.position, playerPos) <= visionRange;
 
         if (inRange)
         {
@@ -74,9 +87,16 @@ public class AISpider : MonoBehaviour
             {
                 return true;
             }
-            else if (Physics.Raycast(transform.position, player.transform.position - transform.position, out RaycastHit hit, visionRange, visionLayers))
+            else if (Physics.Raycast(transform.position, playerPos - transform.position, out RaycastHit hit, visionRange, visionLayers))
             {
-                return true;
+                if(hit.collider.gameObject.name == "Player")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -98,7 +118,7 @@ public class AISpider : MonoBehaviour
         }
         chasing = true;
         visionRange = visionRangeAttacking;
-        agent.SetDestination(player.transform.position);
+        agent.SetDestination(playerPos);
 
     }
     IEnumerator cooldown()

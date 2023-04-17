@@ -6,7 +6,7 @@ public class pausescript : MonoBehaviour
 {
     public CharacterControllerScript player;
     public GameObject pauseMenu;
-    private bool isPaused;
+    public bool isPaused;
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +33,16 @@ public class pausescript : MonoBehaviour
     }
     void Pause()
     {
+        pauseMenu.SetActive(true);
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None; 
-        player.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
         isPaused = true;
         Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
     }
     public void Resume()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        player.enabled = true;
         isPaused = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);

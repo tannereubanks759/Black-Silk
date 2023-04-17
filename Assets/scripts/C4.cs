@@ -38,7 +38,7 @@ public class C4 : MonoBehaviour
         {
             placed = true;
             Destroy(brick);
-            placedBrick = Instantiate(brickPref, wallPos.transform.position, Quaternion.identity);
+            placedBrick = Instantiate(brickPref, wallPos.transform.position, wallPos.transform.rotation);
             det.SetActive(true);
         }
     }

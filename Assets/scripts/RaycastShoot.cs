@@ -14,6 +14,7 @@ public class RaycastShoot : MonoBehaviour
 
     private float nextFire = 0;
     public float fireRate = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,7 @@ public class RaycastShoot : MonoBehaviour
         {
             shootSystem.Stop();
             RayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            if (Physics.Raycast(RayOrigin, out HitInfo, 10f, mask))
+            if (Physics.Raycast(RayOrigin, out HitInfo, 30f, mask))
             {
                 hitPoint = HitInfo.point;
                 Vector3 ShootDir = hitPoint - shootSystem.gameObject.transform.position;
