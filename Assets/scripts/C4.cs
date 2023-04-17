@@ -8,6 +8,8 @@ public class C4 : MonoBehaviour
     public GameObject det;
     public GameObject brickPref;
     public GameObject wallPos;
+    public GameObject wall;
+    public GameManager gm;
     //raycast
     Ray RayOrigin;
     RaycastHit HitInfo;
@@ -44,6 +46,8 @@ public class C4 : MonoBehaviour
     }
     void explode()
     {
+        gm.enableBoss();
         Destroy(placedBrick);
+        wall.SetActive(false);
     }
 }

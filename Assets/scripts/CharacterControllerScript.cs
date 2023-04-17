@@ -111,7 +111,7 @@ public class CharacterControllerScript : MonoBehaviour
                 moveSpeed *= 2;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && c4!=null && c4.activeSelf == false)
         {
             RayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             if (Physics.Raycast(RayOrigin, out HitInfo, 3f))
