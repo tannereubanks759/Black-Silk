@@ -3,77 +3,7 @@ guid: db755b73403aebc4e9332c4541081416
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Boss Room
-    second: {fileID: 2100000, guid: 59bca296142be224a8561d1613b05fe2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bottom Hit
-    second: {fileID: 2100000, guid: a7f1f4d8523f2244aa51911b00a642d2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Giant Enemy Spider
-    second: {fileID: 2100000, guid: 5ba30765d9a741540b7b8d0883b718a4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Left Eye Hit
-    second: {fileID: 2100000, guid: 24c1891887195974bb00e3003737f045, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Left Side Hit
-    second: {fileID: 2100000, guid: 6c1f78340bae9754785e580cba983e14, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Main Level
-    second: {fileID: 2100000, guid: d34d0c7280ff02f49956ff48c97f660e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Right Eye Hit
-    second: {fileID: 2100000, guid: 63a39274d3e854b4095ec86a661fb6b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Right Side Hit
-    second: {fileID: 2100000, guid: 5676489df6d110340b913653932a7b38, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Rocks
-    second: {fileID: 2100000, guid: 660f1d9527442cb4795953dc64248782, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Small Enemy Spider
-    second: {fileID: 2100000, guid: e7c8e0cd4b46aa745b8d4f9924e92965, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Top Hit
-    second: {fileID: 2100000, guid: 8ee680d7626e0be4e8690e16e8ed3703, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: UV Check
-    second: {fileID: 2100000, guid: 6e1620a18c9a3194292548dd6945b58d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wooden Debris
-    second: {fileID: 2100000, guid: 25190df4d466f75479d05056c48daf0c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wooden Posts
-    second: {fileID: 2100000, guid: 227003eb17d5c72469d6556ab5eb3b38, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
