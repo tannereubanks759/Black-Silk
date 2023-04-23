@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             mainRoom.SetActive(false);
             bossEnterance.SetActive(true);
             bossAnim.SetBool("PlayerEnter", true);
+            Destroy(this.gameObject.GetComponent<Collider>());
         }
     }
     public void enableBoss()

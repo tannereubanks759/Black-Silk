@@ -90,7 +90,6 @@ public class CharacterControllerScript : MonoBehaviour
         //walking sounds
         if((vertical > 0.1 || horizontal > .1 || vertical < -0.1 || horizontal < -0.1) && controller.isGrounded == true)
         {
-            Debug.Log(horizontal);
             footstepSound();
         }
 
@@ -158,7 +157,6 @@ public class CharacterControllerScript : MonoBehaviour
         float sub = 400 * (damage * .01f);
         healthBar.transform.localScale -= new Vector3((sub / 100), 0, 0);
 
-        Debug.Log("hit for " + damage);
         health -= damage;
         int healthint = (int)health;
         healthText.text = healthint.ToString();

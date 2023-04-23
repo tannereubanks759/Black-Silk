@@ -43,7 +43,6 @@ public class RaycastShoot : MonoBehaviour
         RayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(RayOrigin, out HitInfo, mask))
         {
-            Debug.Log("hitwall");
             hitPoint = HitInfo.point;
             Vector3 ShootDir = hitPoint - shootSystem.gameObject.transform.position;
             shootSystem.gameObject.transform.rotation = Quaternion.LookRotation(ShootDir, Vector3.up);
@@ -51,7 +50,6 @@ public class RaycastShoot : MonoBehaviour
         else
         {
 
-            Debug.Log("didnt hitwall");
             shootSystem.transform.rotation = this.transform.rotation;
         }
         sound.Play();

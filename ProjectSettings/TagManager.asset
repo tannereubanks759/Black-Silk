@@ -8,6 +8,7 @@ TagManager:
   - c4
   - web
   - spider
+  - hit
   layers:
   - Default
   - TransparentFX

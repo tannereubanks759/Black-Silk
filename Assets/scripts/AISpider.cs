@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class AISpider : MonoBehaviour
 {
+    
     public GameObject player;
     private Vector3 playerPos;
     public int visionRange = 20;
@@ -33,11 +34,13 @@ public class AISpider : MonoBehaviour
 
     public AudioSource spiderAudio;
 
+    public boss bossScript;
     float rate = 3;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        bossScript = GameObject.Find("boss").GetComponent<boss>();
         agent = GetComponent<NavMeshAgent>();
         SpawnLocation = transform.position;
         attackOnCooldown = false;
@@ -171,6 +174,8 @@ public class AISpider : MonoBehaviour
     }
     void die()
     {
+
+        bossScript.RemoveSpider(this.gameObject);
         Destroy(this.gameObject);
     }
 }
