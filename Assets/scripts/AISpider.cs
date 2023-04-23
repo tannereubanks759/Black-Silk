@@ -12,6 +12,10 @@ public class AISpider : MonoBehaviour
     public float attackRange = .5f;
     public LayerMask visionLayers;
 
+    public AudioSource impactSource;
+    public AudioClip impactClip;
+    public AudioClip deathClip;
+
     public float health = 150;
 
     private NavMeshAgent agent;
@@ -23,6 +27,8 @@ public class AISpider : MonoBehaviour
     private float nextTime;
 
     public bool chasing = false;
+
+    public Animator anim;
 
 
     public AudioSource spiderAudio;
@@ -49,16 +55,26 @@ public class AISpider : MonoBehaviour
         if (CanSeePlayer() && attackOnCooldown == false)
         {
             agent.isStopped = false;
+
+            anim.SetBool("IsWalking", true);
             Chase();
         }
         else if(attackOnCooldown == true)
         {
             visionRange = visionRangeIdle;
             agent.isStopped = false;
+            if(agent.transform.position != SpawnLocation)
+            {
+
+                anim.SetBool("IsWalking", true);
+            }
+            
             agent.SetDestination(SpawnLocation);
         }
         else
         {
+
+            anim.SetBool("IsWalking", false);
             agent.isStopped = true;
         }
 
@@ -95,23 +111,26 @@ public class AISpider : MonoBehaviour
                 }
                 else
                 {
+
                     return false;
                 }
             }
             else
             {
+
                 return false;
             }
         }
         else
         {
+
             return false;
         }
 
     }
     void Chase()
     {
-        
+    
         if (agent == null)
         {
             return;
@@ -134,12 +153,21 @@ public class AISpider : MonoBehaviour
     {
         if(other.gameObject.name == "ShootSystem")
         {
+            if (health > 75)
+            {
+                spiderAudio.PlayOneShot(impactClip, 1f);
+            }
+            else
+            {
+                impactSource.PlayOneShot(deathClip, 1f);
+            }
             health -= 50;
         }
         if(health <= 0)
         {
             die();
         }
+
     }
     void die()
     {

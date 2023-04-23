@@ -18,8 +18,9 @@ public class C4 : MonoBehaviour
     public GameObject placedBrick;
 
     public bool placed = false;
-    
 
+
+    public GameObject RockDebris;
     // Update is called once per frame
     void Update()
     {
@@ -49,5 +50,7 @@ public class C4 : MonoBehaviour
         gm.enableBoss();
         Destroy(placedBrick);
         wall.SetActive(false);
-    }
+        RockDebris.SetActive(true);
+
+}
 }

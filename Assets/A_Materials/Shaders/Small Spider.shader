@@ -6,8 +6,7 @@ Shader "Small Spider"
 	{
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
-		[ASEBegin]_TextureSample0("Texture Sample 0", 2D) = "white" {}
-		[ASEEnd]_TextureSample1("Texture Sample 1", 2D) = "white" {}
+		[ASEEnd][ASEBegin]_TextureSample0("Texture Sample 0", 2D) = "white" {}
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 
@@ -187,7 +186,6 @@ Shader "Small Spider"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -271,7 +269,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -305,7 +302,6 @@ Shader "Small Spider"
 			#endif
 
 			sampler2D _TextureSample0;
-			sampler2D _TextureSample1;
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -537,13 +533,10 @@ Shader "Small Spider"
 
 				float2 uv_TextureSample0 = IN.ase_texcoord8.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
 				
-				float2 uv_TextureSample1 = IN.ase_texcoord8.xy * _TextureSample1_ST.xy + _TextureSample1_ST.zw;
-				float4 color20 = IsGammaSpace() ? float4(0.6509434,0,0,0) : float4(0.3812781,0,0,0);
-				
 
 				float3 BaseColor = tex2D( _TextureSample0, uv_TextureSample0 ).rgb;
 				float3 Normal = float3(0, 0, 1);
-				float3 Emission = ( tex2D( _TextureSample1, uv_TextureSample1 ) * color20 ).rgb;
+				float3 Emission = 0;
 				float3 Specular = 0.5;
 				float Metallic = 0;
 				float Smoothness = 0.5;
@@ -762,7 +755,6 @@ Shader "Small Spider"
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -808,7 +800,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1068,7 +1059,6 @@ Shader "Small Spider"
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -1112,7 +1102,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1344,7 +1333,6 @@ Shader "Small Spider"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -1398,7 +1386,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1432,7 +1419,6 @@ Shader "Small Spider"
 			#endif
 
 			sampler2D _TextureSample0;
-			sampler2D _TextureSample1;
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -1606,12 +1592,9 @@ Shader "Small Spider"
 
 				float2 uv_TextureSample0 = IN.ase_texcoord4.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
 				
-				float2 uv_TextureSample1 = IN.ase_texcoord4.xy * _TextureSample1_ST.xy + _TextureSample1_ST.zw;
-				float4 color20 = IsGammaSpace() ? float4(0.6509434,0,0,0) : float4(0.3812781,0,0,0);
-				
 
 				float3 BaseColor = tex2D( _TextureSample0, uv_TextureSample0 ).rgb;
-				float3 Emission = ( tex2D( _TextureSample1, uv_TextureSample1 ) * color20 ).rgb;
+				float3 Emission = 0;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 
@@ -1649,7 +1632,6 @@ Shader "Small Spider"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -1693,7 +1675,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1919,7 +1900,6 @@ Shader "Small Spider"
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -1966,7 +1946,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -2237,7 +2216,6 @@ Shader "Small Spider"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -2317,7 +2295,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -2351,7 +2328,6 @@ Shader "Small Spider"
 			#endif
 
 			sampler2D _TextureSample0;
-			sampler2D _TextureSample1;
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -2576,13 +2552,10 @@ Shader "Small Spider"
 
 				float2 uv_TextureSample0 = IN.ase_texcoord8.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
 				
-				float2 uv_TextureSample1 = IN.ase_texcoord8.xy * _TextureSample1_ST.xy + _TextureSample1_ST.zw;
-				float4 color20 = IsGammaSpace() ? float4(0.6509434,0,0,0) : float4(0.3812781,0,0,0);
-				
 
 				float3 BaseColor = tex2D( _TextureSample0, uv_TextureSample0 ).rgb;
 				float3 Normal = float3(0, 0, 1);
-				float3 Emission = ( tex2D( _TextureSample1, uv_TextureSample1 ) * color20 ).rgb;
+				float3 Emission = 0;
 				float3 Specular = 0.5;
 				float Metallic = 0;
 				float Smoothness = 0.5;
@@ -2703,7 +2676,6 @@ Shader "Small Spider"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -2745,7 +2717,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -2949,7 +2920,6 @@ Shader "Small Spider"
 
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
-			#define _EMISSION
 			#define ASE_SRP_VERSION 120108
 
 
@@ -2991,7 +2961,6 @@ Shader "Small Spider"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _TextureSample0_ST;
-			float4 _TextureSample1_ST;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -3202,13 +3171,12 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;6;0,0;Float;False;False;-1;
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;7;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;GBuffer;0;7;GBuffer;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;3;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalGBuffer;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;8;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;SceneSelectionPass;0;8;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;9;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphLitGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ScenePickingPass;0;9;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Lit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.SamplerNode;17;-703.5,-114;Inherit;True;Property;_TextureSample0;Texture Sample 0;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SamplerNode;18;-651.5,166;Inherit;True;Property;_TextureSample1;Texture Sample 1;1;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;17;-703.5,-114;Inherit;True;Property;_TextureSample0;Texture Sample 0;0;0;Create;True;0;0;0;False;0;False;-1;None;e78fafc9a304eed4aaf648b02ccefc5e;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;18;-651.5,166;Inherit;True;Property;_TextureSample1;Texture Sample 1;1;0;Create;True;0;0;0;False;0;False;-1;None;0200163a1482c58448927f62e14dcc4f;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;19;-232.5,94;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode;20;-610.5,362;Inherit;False;Constant;_Color0;Color 0;2;0;Create;True;0;0;0;False;0;False;0.6509434,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 WireConnection;1;0;17;0
-WireConnection;1;2;19;0
 WireConnection;19;0;18;0
 WireConnection;19;1;20;0
 ASEEND*/
-//CHKSM=A3975259C1053901D55E54EBA7A68C152C7D8794
+//CHKSM=0E2A6D98338127610C6506B7F116C07CE00945A7

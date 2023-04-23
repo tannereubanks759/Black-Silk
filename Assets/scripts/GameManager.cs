@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject bossEnterance;
     public GameObject bossRoom;
 
+    public Animator bossAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +29,12 @@ public class GameManager : MonoBehaviour
         {
             mainRoom.SetActive(false);
             bossEnterance.SetActive(true);
+            bossAnim.SetBool("PlayerEnter", true);
         }
     }
     public void enableBoss()
     {
         bossRoom.SetActive(true);
     }
+
 }

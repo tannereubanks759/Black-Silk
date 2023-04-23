@@ -23,6 +23,7 @@ public class boss : MonoBehaviour
     bool spawnState = false;
     bool shootState = false;
 
+    public Animator anim;
     // Update is called once per frame
     void Update()
     {
@@ -113,5 +114,9 @@ public class boss : MonoBehaviour
     public void sleeping()
     {
         StartCoroutine(Wake());
+    }
+    public void EnterFalse()
+    {
+        anim.SetBool("PlayerEnter", false);
     }
 }
