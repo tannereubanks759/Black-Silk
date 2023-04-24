@@ -19,7 +19,7 @@ public class C4 : MonoBehaviour
 
     public bool placed = false;
 
-
+    public float distance;
     public GameObject RockDebris;
     // Update is called once per frame
     void Update()
@@ -47,10 +47,17 @@ public class C4 : MonoBehaviour
     }
     void explode()
     {
+
+        GameObject player = GameObject.Find("Player");
         gm.enableBoss();
         Destroy(placedBrick);
+        Vector3 wallPosV = wallPos.transform.position;
         wall.SetActive(false);
         RockDebris.SetActive(true);
-
-}
+        if(Vector3.Distance(player.transform.position, wallPosV) < distance)
+        {
+            Debug.Log(Vector3.Distance(player.transform.position, wallPosV));
+            player.GetComponent<CharacterControllerScript>().Damage(100);
+        }
+    }
 }

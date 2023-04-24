@@ -18,11 +18,12 @@ public class HitSpot : MonoBehaviour
     {
         if(other.gameObject.name == "ShootSystem")
         {
+            Debug.Log("Hit");
             source.clip = clip;
             source.Play();
             boss.health--;
             anim.SetBool(animName, true);
-            this.enabled = false;
+            this.gameObject.GetComponent<Collider>().enabled = false;
         }
     }
 }
