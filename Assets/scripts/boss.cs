@@ -173,5 +173,6 @@ public class boss : MonoBehaviour
     public void Die()
     {
         anim.SetBool("dead", true);
+        StartCoroutine(player.GetComponent<CharacterControllerScript>().end());
     }
 }

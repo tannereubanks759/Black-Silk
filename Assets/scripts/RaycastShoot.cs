@@ -17,18 +17,22 @@ public class RaycastShoot : MonoBehaviour
     public ParticleSystem shootSystem;
 
     private float nextFire = 0;
-    public float fireRate = .9f;
+    public float fireRate = 1f;
+
+
 
     public Animator gunPart;
     // Start is called before the first frame update
     void Start()
     {
-        nextFire = 0;
+
+        nextFire = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
         {
             sound.PlayOneShot(charge, .7f);

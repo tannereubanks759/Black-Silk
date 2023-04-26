@@ -47,6 +47,11 @@ public class CharacterControllerScript : MonoBehaviour
     bool isStepping = false;
     private float lastFootstepTime = 0f;
 
+    public AudioClip web;
+    public Animator anim;
+    public GameManager gm;
+
+    
     void Start()
     {
         cam = Camera.main;
@@ -58,6 +63,7 @@ public class CharacterControllerScript : MonoBehaviour
     
     void Update()
     {
+        
         //movement
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
@@ -164,6 +170,7 @@ public class CharacterControllerScript : MonoBehaviour
         {
             GameObject.Find("Canvas").GetComponent<DeathMenu>().Die();
         }
+        anim.SetBool("isHurt", true);
     }
     
     void footstepSound()
@@ -194,11 +201,22 @@ public class CharacterControllerScript : MonoBehaviour
         if(other.gameObject.tag == "web")
         {
             Destroy(other.gameObject);
+            gm.PlaySpiderSound(web);
             Damage(20);
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         
+    }
+    public void setHurt()
+    {
+        anim.SetBool("isHurt", false);
+    }
+
+    public IEnumerator end()
+    {
+        yield return new WaitForSeconds(5);
+        gm.gameObject.GetComponent<UI>().LoadScene("End");
     }
 }

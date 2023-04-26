@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     public Animator bossAnim;
 
+    public AudioSource source;
+    public AudioSource music;
+    public AudioClip boss;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +38,13 @@ public class GameManager : MonoBehaviour
     }
     public void enableBoss()
     {
+        music.clip = boss;
+        music.Play();
         bossRoom.SetActive(true);
+    }
+    public void PlaySpiderSound(AudioClip clip)
+    {
+        source.PlayOneShot(clip, 1f);
     }
 
 }

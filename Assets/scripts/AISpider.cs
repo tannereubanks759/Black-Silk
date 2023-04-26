@@ -33,13 +33,19 @@ public class AISpider : MonoBehaviour
 
 
     public AudioSource spiderAudio;
+    public AudioClip deathclip;
 
     public boss bossScript;
     float rate = 3;
 
+    public GameManager gm;
+
+    public bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        isDead = false;
         if(this.gameObject.tag == "bossMiniSpider")
         {
 
@@ -58,48 +64,52 @@ public class AISpider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerPos = player.transform.position;
-
-        if (CanSeePlayer() && attackOnCooldown == false)
+        if (isDead == false)
         {
-            agent.isStopped = false;
 
-            anim.SetBool("IsWalking", true);
-            Chase();
-        }
-        else if(attackOnCooldown == true)
-        {
-            visionRange = visionRangeIdle;
-            agent.isStopped = false;
-            if(agent.transform.position != SpawnLocation)
+            playerPos = player.transform.position;
+            if (CanSeePlayer() && attackOnCooldown == false)
             {
+                agent.isStopped = false;
 
                 anim.SetBool("IsWalking", true);
+                Chase();
             }
-            
-            agent.SetDestination(SpawnLocation);
-        }
-        else
-        {
+            else if (attackOnCooldown == true)
+            {
+                visionRange = visionRangeIdle;
+                agent.isStopped = false;
+                if (agent.transform.position != SpawnLocation)
+                {
 
-            anim.SetBool("IsWalking", false);
-            agent.isStopped = true;
-        }
+                    anim.SetBool("IsWalking", true);
+                }
 
+                agent.SetDestination(SpawnLocation);
+            }
+            else
+            {
+
+                anim.SetBool("IsWalking", false);
+                agent.isStopped = true;
+            }
+
+
+            if (CanSeePlayer() && (Vector3.Distance(transform.position, player.transform.position) <= attackRange) && attackOnCooldown == false)
+            {
+                chasing = false;
+                player.GetComponent<CharacterControllerScript>().Damage(10);
+                StartCoroutine(cooldown());
+            }
+
+            if (Time.time > nextTime)
+            {
+                rate = Random.Range(3, 7);
+                spiderAudio.Play();
+                nextTime = Time.time + rate;
+            }
+        }
         
-        if (CanSeePlayer() && (Vector3.Distance(transform.position, player.transform.position) <= attackRange) && attackOnCooldown == false) 
-        {
-            chasing = false;
-            player.GetComponent<CharacterControllerScript>().Damage(10);
-            StartCoroutine(cooldown());
-        }
-
-        if(Time.time > nextTime)
-        {
-            rate = Random.Range(3, 7);
-            spiderAudio.Play();
-            nextTime = Time.time + rate;
-        }
     }
     bool CanSeePlayer()
     {
@@ -138,7 +148,7 @@ public class AISpider : MonoBehaviour
     }
     void Chase()
     {
-    
+        
         if (agent == null)
         {
             return;
@@ -159,28 +169,38 @@ public class AISpider : MonoBehaviour
     }
     private void OnParticleCollision(GameObject other)
     {
-        if(other.gameObject.name == "ShootSystem")
+        if (!isDead)
         {
-            if (health > 75)
+            if (other.gameObject.name == "ShootSystem")
             {
-                spiderAudio.PlayOneShot(impactClip, 1f);
+                if (health > 75)
+                {
+                    gm.PlaySpiderSound(impactClip);
+                }
+                else
+                {
+                    impactSource.PlayOneShot(deathClip, 1f);
+                }
+                health -= 50;
             }
-            else
+            if (health <= 0)
             {
-                impactSource.PlayOneShot(deathClip, 1f);
+                die();
             }
-            health -= 50;
         }
-        if(health <= 0)
-        {
-            die();
-        }
+        
 
     }
     void die()
     {
-
+        
+        spiderAudio.clip = deathclip;
+        spiderAudio.volume = 1;
+        spiderAudio.maxDistance = 100;
+        spiderAudio.Play();
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        isDead = true;
         bossScript.RemoveSpider(this.gameObject);
-        Destroy(this.gameObject);
+        anim.SetBool("Dead", true);
     }
 }
